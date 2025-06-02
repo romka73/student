@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Регистрация – Student-Connect</title>
+  <link rel="stylesheet" href="register.css" />
+  <style>
+    form div {
+      margin-bottom: 6px;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container fade-in">
+    <header>
+      <div class="logo">🎓 Student-Connect</div>
+      <nav>
+        <a href="index.html">Главная</a>
+        <a href="login.html" class="highlight">Вход</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h1>Новый аккаунт</h1>
+        <p>Заполните форму ниже, чтобы зарегистрироваться</p>
+        <form id="registerForm" novalidate>
+          <div>
+            <input type="text" id="name" placeholder="Ваше имя" required />
+          </div>
+          <div>
+            <input type="email" id="email" placeholder="Email" required />
+            <div id="emailError" class="error-message" style="display:none;">Введите корректный email</div>
+          </div>
+          <div>
+            <input type="password" id="password" placeholder="Пароль" required />
+            <div id="passwordError" class="error-message" style="display:none;">Пароль должен быть не менее 8 символов</div>
+          </div>
+          <div>
+            <input type="password" id="confirm" placeholder="Повторите пароль" required />
+            <div id="confirmError" class="error-message" style="display:none;">Пароли не совпадают</div>
+          </div>
+          <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p class="bottom-text">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+      </section>
+    </main>
+
+    <footer>
+      © 2025 Student-Connect
+    </footer>
+  </div>
+
+  <script>
+  document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirm = document.getElementById('confirm');
+
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmError = document.getElementById('confirmError');
+
+    let valid = true;
+    
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value.trim())) {
+      emailError.style.display = 'block';
+      valid = false;
+    } else {
+      emailError.style.display = 'none';
+    }
+
+    if (password.value.length < 8) {
+      passwordError.style.display = 'block';
+      valid = false;
+    } else {
+      passwordError.style.display = 'none';
+    }
+
+    if (password.value !== confirm.value) {
+      confirmError.style.display = 'block';
+      valid = false;
+    } else {
+      confirmError.style.display = 'none';
+    }
+
+    if (valid) {
+      // После успешной регистрации — переход на login.html
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+</body>
+</html>
